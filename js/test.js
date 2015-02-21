@@ -7,11 +7,9 @@ if ( ! Detector.webgl ) {
 
 			}
 
-			var fogExp2 = true;
-
 			var container, stats;
 
-			var mesh, mat;
+			var mesh;
 
 			var worldWidth = 200, worldDepth = 200,
 			worldHalfWidth = worldWidth / 2, worldHalfDepth = worldDepth / 2,
@@ -39,7 +37,6 @@ if ( ! Detector.webgl ) {
 				controls.verticalMax = 2.2;
 
 				scene = new THREE.Scene();
-				scene.fog = new THREE.FogExp2( 0xffffff, 0.00015 );
 
 				// sides
 				//Makes dem cubes
