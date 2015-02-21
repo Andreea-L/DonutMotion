@@ -1,3 +1,5 @@
+var camera, controls, scene, renderer;
+
 if ( ! Detector.webgl ) {
 
 				Detector.addGetWebGLMessage();
@@ -8,8 +10,6 @@ if ( ! Detector.webgl ) {
 			var fogExp2 = true;
 
 			var container, stats;
-
-			var camera, controls, scene, renderer;
 
 			var mesh, mat;
 
@@ -42,7 +42,7 @@ if ( ! Detector.webgl ) {
 				scene.fog = new THREE.FogExp2( 0xffffff, 0.00015 );
 
 				// sides
-				
+				//Makes dem cubes
 				var light = new THREE.Color( 0xffffff );
 				var shadow = new THREE.Color( 0x505050 );
 
@@ -51,36 +51,36 @@ if ( ! Detector.webgl ) {
 				var pxGeometry = new THREE.PlaneGeometry( 100, 100 );
 				pxGeometry.faces[ 0 ].vertexColors = [ light, shadow, light ];
 				pxGeometry.faces[ 1 ].vertexColors = [ shadow, shadow, light ];
-				pxGeometry.faceVertexUvs[ 0 ][ 0 ][ 0 ].y = 0.5;
-				pxGeometry.faceVertexUvs[ 0 ][ 0 ][ 2 ].y = 0.5;
-				pxGeometry.faceVertexUvs[ 0 ][ 1 ][ 2 ].y = 0.5;
+				pxGeometry.faceVertexUvs[ 0 ][ 0 ][ 0 ].y = 1;
+				pxGeometry.faceVertexUvs[ 0 ][ 0 ][ 2 ].y = 1;
+				pxGeometry.faceVertexUvs[ 0 ][ 1 ][ 2 ].y = 1;
 				pxGeometry.applyMatrix( matrix.makeRotationY( Math.PI / 2 ) );
 				pxGeometry.applyMatrix( matrix.makeTranslation( 50, 0, 0 ) );
 
 				var nxGeometry = new THREE.PlaneGeometry( 100, 100 );
 				nxGeometry.faces[ 0 ].vertexColors = [ light, shadow, light ];
 				nxGeometry.faces[ 1 ].vertexColors = [ shadow, shadow, light ];
-				nxGeometry.faceVertexUvs[ 0 ][ 0 ][ 0 ].y = 0.5;
-				nxGeometry.faceVertexUvs[ 0 ][ 0 ][ 2 ].y = 0.5;
-				nxGeometry.faceVertexUvs[ 0 ][ 1 ][ 2 ].y = 0.5;
+				nxGeometry.faceVertexUvs[ 0 ][ 0 ][ 0 ].y = 1;
+				nxGeometry.faceVertexUvs[ 0 ][ 0 ][ 2 ].y = 1;
+				nxGeometry.faceVertexUvs[ 0 ][ 1 ][ 2 ].y = 1;
 				nxGeometry.applyMatrix( matrix.makeRotationY( - Math.PI / 2 ) );
 				nxGeometry.applyMatrix( matrix.makeTranslation( - 50, 0, 0 ) );
 
 				var pyGeometry = new THREE.PlaneGeometry( 100, 100 );
 				pyGeometry.faces[ 0 ].vertexColors = [ light, light, light ];
 				pyGeometry.faces[ 1 ].vertexColors = [ light, light, light ];
-				pyGeometry.faceVertexUvs[ 0 ][ 0 ][ 1 ].y = 0.5;
-				pyGeometry.faceVertexUvs[ 0 ][ 1 ][ 0 ].y = 0.5;
-				pyGeometry.faceVertexUvs[ 0 ][ 1 ][ 1 ].y = 0.5;
+				pyGeometry.faceVertexUvs[ 0 ][ 0 ][ 1 ].y = 0;
+				pyGeometry.faceVertexUvs[ 0 ][ 1 ][ 0 ].y = 0;
+				pyGeometry.faceVertexUvs[ 0 ][ 1 ][ 1 ].y = 0;
 				pyGeometry.applyMatrix( matrix.makeRotationX( - Math.PI / 2 ) );
 				pyGeometry.applyMatrix( matrix.makeTranslation( 0, 50, 0 ) );
 
 				var py2Geometry = new THREE.PlaneGeometry( 100, 100 );
 				py2Geometry.faces[ 0 ].vertexColors = [ light, light, light ];
 				py2Geometry.faces[ 1 ].vertexColors = [ light, light, light ];
-				py2Geometry.faceVertexUvs[ 0 ][ 0 ][ 1 ].y = 0.5;
-				py2Geometry.faceVertexUvs[ 0 ][ 1 ][ 0 ].y = 0.5;
-				py2Geometry.faceVertexUvs[ 0 ][ 1 ][ 1 ].y = 0.5;
+				py2Geometry.faceVertexUvs[ 0 ][ 0 ][ 1 ].y = 0;
+				py2Geometry.faceVertexUvs[ 0 ][ 1 ][ 0 ].y = 0;
+				py2Geometry.faceVertexUvs[ 0 ][ 1 ][ 1 ].y = 0;
 				py2Geometry.applyMatrix( matrix.makeRotationX( - Math.PI / 2 ) );
 				py2Geometry.applyMatrix( matrix.makeRotationY( Math.PI / 2 ) );
 				py2Geometry.applyMatrix( matrix.makeTranslation( 0, 50, 0 ) );
@@ -88,17 +88,17 @@ if ( ! Detector.webgl ) {
 				var pzGeometry = new THREE.PlaneGeometry( 100, 100 );
 				pzGeometry.faces[ 0 ].vertexColors = [ light, shadow, light ];
 				pzGeometry.faces[ 1 ].vertexColors = [ shadow, shadow, light ];
-				pzGeometry.faceVertexUvs[ 0 ][ 0 ][ 0 ].y = 0.5;
-				pzGeometry.faceVertexUvs[ 0 ][ 0 ][ 2 ].y = 0.5;
-				pzGeometry.faceVertexUvs[ 0 ][ 1 ][ 2 ].y = 0.5;
+				pzGeometry.faceVertexUvs[ 0 ][ 0 ][ 0 ].y = 1;
+				pzGeometry.faceVertexUvs[ 0 ][ 0 ][ 2 ].y = 1;
+				pzGeometry.faceVertexUvs[ 0 ][ 1 ][ 2 ].y = 1;
 				pzGeometry.applyMatrix( matrix.makeTranslation( 0, 0, 50 ) );
 
 				var nzGeometry = new THREE.PlaneGeometry( 100, 100 );
 				nzGeometry.faces[ 0 ].vertexColors = [ light, shadow, light ];
 				nzGeometry.faces[ 1 ].vertexColors = [ shadow, shadow, light ];
-				nzGeometry.faceVertexUvs[ 0 ][ 0 ][ 0 ].y = 0.5;
-				nzGeometry.faceVertexUvs[ 0 ][ 0 ][ 2 ].y = 0.5;
-				nzGeometry.faceVertexUvs[ 0 ][ 1 ][ 2 ].y = 0.5;
+				nzGeometry.faceVertexUvs[ 0 ][ 0 ][ 0 ].y = 1;
+				nzGeometry.faceVertexUvs[ 0 ][ 0 ][ 2 ].y = 1;
+				nzGeometry.faceVertexUvs[ 0 ][ 1 ][ 2 ].y = 1;
 				nzGeometry.applyMatrix( matrix.makeRotationY( Math.PI ) );
 				nzGeometry.applyMatrix( matrix.makeTranslation( 0, 0, - 50 ) );
 
@@ -220,7 +220,7 @@ if ( ! Detector.webgl ) {
 
 				}
 
-				var texture = THREE.ImageUtils.loadTexture( 'textures/face.png' );
+				var texture = THREE.ImageUtils.loadTexture( 'textures/pusheen.gif' );
 				texture.magFilter = THREE.NearestFilter;
 				texture.minFilter = THREE.LinearMipMapLinearFilter;
 
@@ -245,6 +245,8 @@ if ( ! Detector.webgl ) {
 
 
 				window.addEventListener( 'resize', onWindowResize, false );
+
+				makeFancySkyBox();
 
 			}
 
@@ -303,16 +305,35 @@ if ( ! Detector.webgl ) {
 			//
 
 			function animate() {
-
 				requestAnimationFrame( animate );
-
 				render();
 
 			}
 
 			function render() {
-
 				controls.update( clock.getDelta() );
 				renderer.render( scene, camera );
+
+			}
+
+			//Makes skybox
+			function makeFancySkyBox(){
+				var axes = new THREE.AxisHelper(100);
+				scene.add(axes);
+				
+				var imagePrefix = "textures/dawnmountain-";
+				var directions  = ["xpos", "xneg", "ypos", "yneg", "zpos", "zneg"];
+				var imageSuffix = ".png";
+				var skyGeometry = new THREE.CubeGeometry( 20000, 20000, 20000);	
+				
+				var materialArray = [];
+				for (var i = 0; i < 6; i++)
+					materialArray.push( new THREE.MeshBasicMaterial({
+						map: THREE.ImageUtils.loadTexture( imagePrefix + directions[i] + imageSuffix ),
+						side: THREE.BackSide
+					}));
+				var skyMaterial = new THREE.MeshFaceMaterial( materialArray );
+				var skyBox = new THREE.Mesh( skyGeometry, skyMaterial );
+				scene.add( skyBox );
 
 			}
