@@ -1,4 +1,5 @@
 var camera, controls, scene, renderer;
+var plane;
 var rot = [0,-1,0];
 
 if ( ! Detector.webgl ) {
@@ -307,6 +308,12 @@ if ( ! Detector.webgl ) {
 
 	function animate() {
 		requestAnimationFrame( animate );
+
+	    mesh.lookAt(new THREE.Vector3(
+        mesh.position.x + rot[0]*Math.PI,
+        mesh.position.y + rot[1]*Math.PI,
+        mesh.position.z + rot[2]*Math.PI
+    ));
 		render();
 		//stats.update();
 
@@ -349,7 +356,7 @@ if ( ! Detector.webgl ) {
 	    });
 	    var geometry = new THREE.BoxGeometry( 200, 200, 100 );
 
-	    var mesh = new THREE.Mesh( geometry, shaderMaterial );
-	    mesh.up = new THREE.Vector3(0,0,1);
-	    scene.add(mesh);
+	    plane = new THREE.Mesh( geometry, shaderMaterial );
+	    plane.up = new THREE.Vector3(0,0,1);
+	    scene.add(plane);
 	}
