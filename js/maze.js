@@ -1,0 +1,1 @@
+var maze = {} //Some array of 0s and 1s.
