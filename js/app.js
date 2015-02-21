@@ -307,7 +307,6 @@ if ( ! Detector.webgl ) {
 				requestAnimationFrame( animate );
 
 				render();
-				stats.update();
 
 			}
 
