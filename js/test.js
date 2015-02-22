@@ -4,6 +4,10 @@ var rot = [0,-1,0];
 var collidableMeshes = [];
 var keyStates = {};
 var alive = true;
+var score = 0;
+var red_radius = 850;
+var blue_radius = 750;
+var green_radius = 750;
 
 if ( ! Detector.webgl ) {
 
