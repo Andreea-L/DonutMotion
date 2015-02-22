@@ -2,6 +2,7 @@ var camera, controls, scene, renderer;
 var plane;
 var rot = [0,-1,0];
 var collidableMeshes = [];
+var keyStates = {};
 
 if ( ! Detector.webgl ) {
 
@@ -33,14 +34,14 @@ if ( ! Detector.webgl ) {
 		camera.position.y = getY( worldHalfWidth, worldHalfDepth ) * 100 + 100;
         camera.up = new THREE.Vector3(0,1,0);
 
-		controls = new THREE.FirstPersonControls( camera );
+		//controls = new THREE.FirstPersonControls( camera );
 
-		controls.movementSpeed = 1000;
-		controls.lookSpeed = 0.125;
-		controls.lookVertical = true;
-		controls.constrainVertical = true;
-		controls.verticalMin = 1.1;
-		controls.verticalMax = 2.2;
+		//controls.movementSpeed = 1000;
+		//controls.lookSpeed = 0.125;
+		//controls.lookVertical = true;
+		//controls.constrainVertical = true;
+		//controls.verticalMin = 1.1;
+		//controls.verticalMax = 2.2;
 
 		scene = new THREE.Scene();
 		scene.fog = new THREE.FogExp2( 0xffffff, 0.0001 );
@@ -325,6 +326,11 @@ function getY( x, z ) {
 	function animate() {
 		requestAnimationFrame( animate );
 
+        if(keyStates.down){ rot[2] -= 0.03; }
+        if(keyStates.up){ rot[2] += 0.03; }
+        if(keyStates.right){ rot[0] -= 0.03; }
+        if(keyStates.left){ rot[0] += 0.03; }
+
         if(plane){
             var speed = 30;
             plane.position.x += Math.cos(planeZAngle - Math.PI/2)*speed;
@@ -358,7 +364,7 @@ function getY( x, z ) {
 	}
 
 function render() {
-		controls.update( clock.getDelta() );
+		//controls.update( clock.getDelta() );
 		renderer.render( scene, camera );
 
 	}
@@ -386,7 +392,7 @@ function makeFancySkyBox(){
 function makePlane(){
 	    var geometry = new THREE.BoxGeometry(200, 200, 100);
 
-	    plane = new THREE.Mesh( geometry, new THREE.MeshLambertMaterial( { ambient: 0xbbbbbb, vertexColors: THREE.VertexColors } ) );
+	    plane = new THREE.Mesh( geometry, new THREE.MeshLambertMaterial( { ambient: 0xbbbbbb, color:0xff8800 , vertexColors: THREE.VertexColors } ) );
 	    plane.up = new THREE.Vector3(0,0,1);
 	    scene.add(plane);
         plane.position.y = 1000;
@@ -407,8 +413,65 @@ function checkCollision(){
 	}
 }
 
+function onKeyDown ( event ) {
+
+    switch ( event.keyCode ) {
+        case 38: /*up*/
+        case 87: /*W*/ keyStates.up = true; break;
+
+        case 37: /*left*/
+        case 65: /*A*/ keyStates.left = true; break;
+
+        case 40: /*down*/
+        case 83: /*S*/ keyStates.down = true; break;
+
+        case 39: /*right*/
+        case 68: /*D*/ keyStates.right = true; break;
+
+        //case 82: /*R*/ this.moveUp = true; break;
+        //case 70: /*F*/ this.moveDown = true; break;
+
+    }
+}
+
+function onKeyUp ( event ) {
+
+    switch( event.keyCode ) {
+
+        case 38: /*up*/
+        case 87: /*W*/ keyStates.up = false; break;
+
+        case 37: /*left*/
+        case 65: /*A*/ keyStates.left= false; break;
+
+        case 40: /*down*/
+        case 83: /*S*/ keyStates.down = false; break;
+
+        case 39: /*right*/
+        case 68: /*D*/ keyStates.right = false; break;
+
+        //case 82: /*R*/ this.moveUp = false; break;
+        //case 70: /*F*/ this.moveDown = false; break;
+
+    }
+
+}
+
+function bind( scope, fn ) {
+
+    return function () {
+
+        fn.apply( scope, arguments );
+
+    };
+
+}
+
 $(function() {
     makePlane();
+
+    window.addEventListener( 'keydown', bind( this, onKeyDown ), false );
+    window.addEventListener( 'keyup', bind( this, onKeyUp ), false );
 
     Leap.loop(function (frame) {
         if(frame.hands.length > 0) {
