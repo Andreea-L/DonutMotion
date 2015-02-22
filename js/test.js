@@ -31,6 +31,7 @@ if ( ! Detector.webgl ) {
 
 		camera = new THREE.PerspectiveCamera( 50, window.innerWidth / window.innerHeight, 1, 20000 );
 		camera.position.y = getY( worldHalfWidth, worldHalfDepth ) * 100 + 100;
+        camera.up = new THREE.Vector3(0,1,0);
 
 		controls = new THREE.FirstPersonControls( camera );
 
@@ -318,18 +319,38 @@ function getY( x, z ) {
 
 	//
 
-function animate() {
+    var planeZAngle = 0;
+
+	function animate() {
 		requestAnimationFrame( animate );
 
         if(plane){
-            plane.lookAt(new THREE.Vector3(
-                plane.position.x + rot[0]*Math.PI,
-                plane.position.y + rot[1]*Math.PI,
-                plane.position.z + rot[2]*Math.PI
-            ));
-            //checkCollision();
+            var speed = 30;
+            plane.position.x += Math.cos(planeZAngle - Math.PI/2)*speed;
+            plane.position.z += Math.sin(planeZAngle - Math.PI/2)*speed;
+            plane.position.y += -rot[2]*2*speed;
+
+            var rotationNormal = new THREE.Vector3(rot[0],rot[1],rot[2]);
+            var axis = new THREE.Vector3( 0, 1, 0 );
+            rotationNormal.applyAxisAngle( axis, -planeZAngle );
+            rotationNormal.add(plane.position);
+
+            planeZAngle -= rot[0]*0.05;
+
+            plane.lookAt(rotationNormal);
+            plane.rotateZ(planeZAngle);
+
+            camera.lookAt(plane.position);
+
+            var direction = new THREE.Vector3(0, -1, 0);
+            var axis = new THREE.Vector3( -1, 0, 0 );
+            direction.applyAxisAngle( axis, Math.PI / 2 );
+            var axis = new THREE.Vector3( 0, 1, 0 );
+            direction.applyAxisAngle( axis, -planeZAngle );
+
+            var cameraPosition = direction.multiplyScalar(500).add(plane.position);
+            camera.position.set(cameraPosition.x, cameraPosition.y, cameraPosition.z);
         }
-        
 
 		render();
 
@@ -367,7 +388,7 @@ function makePlane(){
 	    plane = new THREE.Mesh( geometry, new THREE.MeshLambertMaterial( { ambient: 0xbbbbbb, vertexColors: THREE.VertexColors } ) );
 	    plane.up = new THREE.Vector3(0,0,1);
 	    scene.add(plane);
-        plane.position.y = 500;
+        plane.position.y = 1000;
 }
 
 function checkCollision(){
