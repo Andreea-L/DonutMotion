@@ -363,6 +363,7 @@ function getY( x, z ) {
 //
 
 var planeZAngle = 0;
+var guiCounter = 10;
 
 function animate() {
     requestAnimationFrame( animate );
@@ -376,10 +377,20 @@ function animate() {
 
     var falling = (speed < 15) ? ( (15-speed) ) : 0;
 
-    if(plane){
+    if(plane && alive){
         plane.position.x += Math.cos(planeZAngle - Math.PI/2)*speed;
         plane.position.z += Math.sin(planeZAngle - Math.PI/2)*speed;
         plane.position.y += -rot[2]*2*speed - falling;
+        speed += rot[2]*0.1;
+        if(speed < 0)speed = 0;
+
+        var x = Math.round(plane.position.x/100)+worldHalfWidth;
+        var z = Math.round(plane.position.z/100)+worldHalfWidth;
+        var alt  = plane.position.y/100 - getY(x,z);
+        if(!guiCounter){
+            $('#gui .info').html('Speed: <em>'+ speed.toFixed(2) +'</em> Radar altitude: <em>'+ alt.toFixed(2) +'</em>');
+            guiCounter = 10;
+        }else{ guiCounter--; }
 
         var rotationNormal = new THREE.Vector3(rot[0],rot[1],rot[2]);
         var axis = new THREE.Vector3( 0, 1, 0 );
@@ -391,19 +402,17 @@ function animate() {
         plane.lookAt(rotationNormal);
         plane.rotateZ(planeZAngle);
 
-        if(alive){
-            camera.lookAt(plane.position);
+        camera.lookAt(plane.position);
 
-            var direction = new THREE.Vector3(0, -1, 0);
-            var axis = new THREE.Vector3( -1, 0, 0 );
-            direction.applyAxisAngle( axis, Math.PI / 2 );
-            var axis = new THREE.Vector3( 0, 1, 0 );
-            direction.applyAxisAngle( axis, -planeZAngle );
+        var direction = new THREE.Vector3(0, -1, 0);
+        var axis = new THREE.Vector3( -1, 0, 0 );
+        direction.applyAxisAngle( axis, Math.PI / 2 );
+        var axis = new THREE.Vector3( 0, 1, 0 );
+        direction.applyAxisAngle( axis, -planeZAngle );
 
-            var cameraPosition = direction.multiplyScalar(cameraZoom).add(plane.position);
-            camera.position.set(cameraPosition.x, cameraPosition.y, cameraPosition.z);
-            checkCollision();
-        }
+        var cameraPosition = direction.multiplyScalar(cameraZoom).add(plane.position);
+        camera.position.set(cameraPosition.x, cameraPosition.y, cameraPosition.z);
+        checkCollision();
     }
 
     render();
@@ -543,6 +552,8 @@ $(function() {
 
     window.addEventListener( 'keydown', bind( this, onKeyDown ), false );
     window.addEventListener( 'keyup', bind( this, onKeyUp ), false );
+
+    $('#gui .score').html('Score: <em>'+ (0).toFixed(2) +'</em>');
 
     Leap.loop(function (frame) {
         if(frame.hands.length > 0) {

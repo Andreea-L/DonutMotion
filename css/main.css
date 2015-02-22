@@ -1,0 +1,42 @@
+body {
+  color: #61443e;
+  font-family: Monospace;
+  font-size: 13px;
+  text-align: center;
+
+  background-color: #bfd1e5;
+  margin: 0;
+  overflow: hidden;
+}
+
+#gui {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 60px;
+  background: #222;
+  width: 100%;
+  text-align: center;
+}
+
+#gui .score, #gui .info {
+  position: absolute;
+  top: 0;
+  color: #fff;
+  font-size: 21px;
+  font-family: Helvetica Neue, Helvetica, Arial;
+  width: 50%;
+  line-height: 60px;
+}
+
+#gui .info {
+  left: 0;
+}
+
+#gui em {
+  margin-right: 20px;
+}
+
+#gui .score {
+  right: 0;
+}
