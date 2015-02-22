@@ -394,19 +394,22 @@ function makeFancySkyBox(){
 
 function makePlane(){
 	    var geometry = new THREE.CylinderGeometry(10, 20, 175, 32);
-	    plane = new THREE.Mesh( geometry, new THREE.MeshLambertMaterial( { ambient: 0x00ff00, color:0x77ff77 , vertexColors: THREE.VertexColors } ) );
+	    plane = new THREE.Mesh( geometry, new THREE.MeshLambertMaterial(
+	    			{ map: THREE.ImageUtils.loadTexture( 'textures/JP-Morgan-Logo1.jpg' ),
+	    			ambient: 0x555555, //color:0x77ff77 ,
+	    			vertexColors: THREE.VertexColors } ) );
 	    plane.up = new THREE.Vector3(0,0,1);
 
 	    var wingsGeometry = new THREE.BoxGeometry(300, 30, 5);
-	    wings = new THREE.Mesh( wingsGeometry, new THREE.MeshLambertMaterial( { ambient: 0x00ff00, color:0x77ff77 , vertexColors: THREE.VertexColors } ) );
+	    wings = new THREE.Mesh( wingsGeometry, new THREE.MeshLambertMaterial( { ambient: 0xff9933, color:0xff6600 , vertexColors: THREE.VertexColors } ) );
 	    wings.up = new THREE.Vector3(0,0,1);
 	    wings.position.z += 10;
 	    wings.position.y -= 20;
 
 	    var rearGeometry = new THREE.BoxGeometry(80, 20, 4);
-	    rear = new THREE.Mesh( rearGeometry, new THREE.MeshLambertMaterial( { ambient: 0x00ff00, color:0x77ff77 , vertexColors: THREE.VertexColors } ) );
+	    rear = new THREE.Mesh( rearGeometry, new THREE.MeshLambertMaterial( { ambient: 0xff9933, color:0xff6600 , vertexColors: THREE.VertexColors } ) );
 	    rear.up = new THREE.Vector3(0,0,1);
-	    rear.position.z -= 10;
+	    rear.position.z -= 8;
 	    rear.position.y += 75;
 
 	    plane.add(wings);
