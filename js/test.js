@@ -390,10 +390,24 @@ function makeFancySkyBox(){
 	}
 
 function makePlane(){
-	    var geometry = new THREE.BoxGeometry(200, 200, 100);
-
-	    plane = new THREE.Mesh( geometry, new THREE.MeshLambertMaterial( { ambient: 0xbbbbbb, color:0xff8800 , vertexColors: THREE.VertexColors } ) );
+	    var geometry = new THREE.CylinderGeometry(10, 20, 175, 32);
+	    plane = new THREE.Mesh( geometry, new THREE.MeshLambertMaterial( { ambient: 0x00ff00, color:0x77ff77 , vertexColors: THREE.VertexColors } ) );
 	    plane.up = new THREE.Vector3(0,0,1);
+
+	    var wingsGeometry = new THREE.BoxGeometry(300, 30, 5);
+	    wings = new THREE.Mesh( wingsGeometry, new THREE.MeshLambertMaterial( { ambient: 0x00ff00, color:0x77ff77 , vertexColors: THREE.VertexColors } ) );
+	    wings.up = new THREE.Vector3(0,0,1);
+	    wings.position.z += 10;
+	    wings.position.y -= 20;
+
+	    var rearGeometry = new THREE.BoxGeometry(80, 20, 4);
+	    rear = new THREE.Mesh( rearGeometry, new THREE.MeshLambertMaterial( { ambient: 0x00ff00, color:0x77ff77 , vertexColors: THREE.VertexColors } ) );
+	    rear.up = new THREE.Vector3(0,0,1);
+	    rear.position.z -= 10;
+	    rear.position.y += 75;
+
+	    plane.add(wings);
+	    plane.add(rear);
 	    scene.add(plane);
         plane.position.y = 1000;
 }
