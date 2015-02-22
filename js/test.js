@@ -239,7 +239,7 @@ if ( ! Detector.webgl ) {
 
 		var mesh = new THREE.Mesh( geometry, new THREE.MeshLambertMaterial( { map: texture, ambient: 0xbbbbbb, vertexColors: THREE.VertexColors } ) );
 		scene.add( mesh );
-		console.log(mesh);
+		//console.log(mesh);
 		collidableMeshes.push(mesh);
 
 		var ambientLight = new THREE.AmbientLight( 0xcccccc );
@@ -262,7 +262,6 @@ if ( ! Detector.webgl ) {
 		window.addEventListener( 'resize', onWindowResize, false );
 
 		makeFancySkyBox();
-
 	}
 
 	function onWindowResize() {
