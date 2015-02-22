@@ -479,6 +479,7 @@ function checkCollision(){
 		if(plane)
 			makeBoom();
 			//stopTheme();
+            $('.gameover-container').show();
 			$( "#hidden-button" ).trigger( "click" );
 	}
 }
