@@ -9,9 +9,11 @@ if ( ! Detector.webgl ) {
 
 	}
 
+	var fogExp2 = true;
+
 	var container, stats;
 
-	var mesh;
+	var mesh, mat;
 
 	var worldWidth = 200, worldDepth = 200,
 	worldHalfWidth = worldWidth / 2, worldHalfDepth = worldDepth / 2,
@@ -39,6 +41,7 @@ if ( ! Detector.webgl ) {
 		controls.verticalMax = 2.2;
 
 		scene = new THREE.Scene();
+		scene.fog = new THREE.FogExp2( 0xffffff, 0.0001 );
 
 		// sides
 		//Makes dem cubes
@@ -305,15 +308,16 @@ if ( ! Detector.webgl ) {
 
 	function animate() {
 		requestAnimationFrame( animate );
-		/*
-	    plane.lookAt(new THREE.Vector3(
-	        plane.position.x + rot[0]*Math.PI,
-	        plane.position.y + rot[1]*Math.PI,
-	        plane.position.z + rot[2]*Math.PI
-	    ));
-		*/
+
+        if(plane){
+            plane.lookAt(new THREE.Vector3(
+                plane.position.x + rot[0]*Math.PI,
+                plane.position.y + rot[1]*Math.PI,
+                plane.position.z + rot[2]*Math.PI
+            ));
+        }
+
 		render();
-			//stats.update();
 
 	}
 
@@ -325,23 +329,25 @@ function render() {
 
 	//Makes skybox
 function makeFancySkyBox(){
+		var axes = new THREE.AxisHelper(100);
+		scene.add(axes);
 		
-	var imagePrefix = "textures/dawnmountain-";
-	var directions  = ["xpos", "xneg", "ypos", "yneg", "zpos", "zneg"];
-	var imageSuffix = ".png";
-	var skyGeometry = new THREE.CubeGeometry(20000, 20000, 20000);	
-	
-	var materialArray = [];
-	for (var i = 0; i < 6; i++)
-		materialArray.push( new THREE.MeshBasicMaterial({
-			map: THREE.ImageUtils.loadTexture( imagePrefix + directions[i] + imageSuffix ),
-			side: THREE.BackSide
-		}));
-	var skyMaterial = new THREE.MeshFaceMaterial( materialArray );
-	var skyBox = new THREE.Mesh( skyGeometry, skyMaterial );
-	scene.add( skyBox );
+		var imagePrefix = "textures/dawnmountain-";
+		var directions  = ["xpos", "xneg", "ypos", "yneg", "zpos", "zneg"];
+		var imageSuffix = ".png";
+		var skyGeometry = new THREE.CubeGeometry( 20000, 20000, 20000);	
+		
+		var materialArray = [];
+		for (var i = 0; i < 6; i++)
+			materialArray.push( new THREE.MeshBasicMaterial({
+				map: THREE.ImageUtils.loadTexture( imagePrefix + directions[i] + imageSuffix ),
+				side: THREE.BackSide
+			}));
+		var skyMaterial = new THREE.MeshFaceMaterial( materialArray );
+		var skyBox = new THREE.Mesh( skyGeometry, skyMaterial );
+		scene.add( skyBox );
 
-}
+	}
 
 function makePlane(){
 		var shaderMaterial = new THREE.ShaderMaterial({
@@ -352,14 +358,14 @@ function makePlane(){
 	    });
 	    var geometry = new THREE.BoxGeometry(200, 200, 100);
 
-	    plane = new THREE.Mesh( geometry, shaderMaterial );
+	    plane = new THREE.Mesh( geometry, new THREE.MeshLambertMaterial( { ambient: 0xbbbbbb, vertexColors: THREE.VertexColors } ) );
 	    plane.up = new THREE.Vector3(0,0,1);
 	    scene.add(plane);
+        plane.position.y = 500;
 	}
 
 $(function() {
     makePlane();
-    animate();
 
     Leap.loop(function (frame) {
         if(frame.hands.length > 0) {
