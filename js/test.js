@@ -226,7 +226,7 @@ if ( ! Detector.webgl ) {
 
 		}
 
-		var texture = THREE.ImageUtils.loadTexture( 'textures/snow1.jpg' );
+		var texture = THREE.ImageUtils.loadTexture( 'textures/money.jpg' );
 
 		// var material1 = new THREE.MeshPhongMaterial( { map: THREE.ImageUtils.loadTexture('textures/red.jpg') } );
 		// var material2 = new THREE.MeshPhongMaterial( { map: THREE.ImageUtils.loadTexture('textures/snow.jpg') } );
