@@ -413,6 +413,7 @@ function animate() {
         var cameraPosition = direction.multiplyScalar(cameraZoom).add(plane.position);
         camera.position.set(cameraPosition.x, cameraPosition.y, cameraPosition.z);
         checkCollision();
+        checkHoopTraversal();
     }
 
     render();
@@ -545,6 +546,27 @@ function bind( scope, fn ) {
 
     };
 
+}
+
+function checkHoopTraversal(){
+		var x = plane.position.x;
+		var z = plane.position.z;
+		var y = plane.position.y;
+
+	    if((y - torus.position.y)^2 + (x - torus.position.x)^2 < red_radius^2 && (z < torus.position.z+5 && z > torus.position.z-5)){
+	    	console.log("Red ringa ringa ringa");
+	    	score++;	
+	    }
+	    
+	    if((y - torus2.position.y)^2 + (x - torus2.position.x)^2 < blue_radius^2 && (z < torus2.position.y+5 && z > torus2.position.y-5)){
+	    	console.log("Blu blu blu");
+	    	score++;	
+	    }
+
+	    if((z - torus3.position.z)^2 + (y - torus3.position.y)^2 < green_radius^2 && (y < torus3.position.y+5 && y > torus3.position.y-5)){
+	    	console.log("Greeeeeeenooo");
+	    	score++;
+	    }
 }
 
 $(function() {
