@@ -328,7 +328,9 @@ function animate() {
                 plane.position.y + rot[1]*Math.PI,
                 plane.position.z + rot[2]*Math.PI
             ));
+            //checkCollision();
         }
+        
 
 		render();
 
@@ -370,7 +372,7 @@ function makePlane(){
 }
 
 function checkCollision(){
-	var originPoint = MovingCube.position.clone();
+	var originPoint = plane.position.clone();
 
 	for (var vertexIndex = 0; vertexIndex < plane.geometry.vertices.length; vertexIndex++){		
 		var localVertex = plane.geometry.vertices[vertexIndex].clone();
@@ -378,7 +380,7 @@ function checkCollision(){
 		var directionVector = globalVertex.sub( plane.position );
 		
 		var ray = new THREE.Raycaster( originPoint, directionVector.clone().normalize() );
-		var collisionResults = ray.intersectObjects( collidableMeshList );
+		var collisionResults = ray.intersectObjects( collidableMeshes );
 		if ( collisionResults.length > 0 && collisionResults[0].distance < directionVector.length() ) 
 			console.log("you exlode");
 	}
