@@ -308,15 +308,16 @@ if ( ! Detector.webgl ) {
 
 	function animate() {
 		requestAnimationFrame( animate );
-		/*
-	    plane.lookAt(new THREE.Vector3(
-	        plane.position.x + rot[0]*Math.PI,
-	        plane.position.y + rot[1]*Math.PI,
-	        plane.position.z + rot[2]*Math.PI
-	    ));
-		*/
+
+        if(plane){
+            plane.lookAt(new THREE.Vector3(
+                plane.position.x + rot[0]*Math.PI,
+                plane.position.y + rot[1]*Math.PI,
+                plane.position.z + rot[2]*Math.PI
+            ));
+        }
+
 		render();
-			//stats.update();
 
 	}
 
@@ -349,22 +350,16 @@ function makeFancySkyBox(){
 	}
 
 function makePlane(){
-		var shaderMaterial = new THREE.ShaderMaterial({
-	        attributes:     {},
-	        uniforms:       {},
-	        vertexShader:   shaders.vertex,
-	        fragmentShader: shaders.fragment
-	    });
 	    var geometry = new THREE.BoxGeometry(200, 200, 100);
 
-	    plane = new THREE.Mesh( geometry, shaderMaterial );
+	    plane = new THREE.Mesh( geometry, new THREE.MeshLambertMaterial( { ambient: 0xbbbbbb, vertexColors: THREE.VertexColors } ) );
 	    plane.up = new THREE.Vector3(0,0,1);
 	    scene.add(plane);
+        plane.position.y = 500;
 	}
 
 $(function() {
     makePlane();
-    animate();
 
     Leap.loop(function (frame) {
         if(frame.hands.length > 0) {
