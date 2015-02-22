@@ -409,7 +409,7 @@ function checkCollision(){
 }
 
 function makeBoom(){
-	scene.remove(plane);
+	//scene.remove(plane);
 	//this.engine = new ParticleEngine();
 	//engine.setValues( Examples.smoke );
 	//engine.initialize();
