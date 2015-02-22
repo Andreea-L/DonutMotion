@@ -41,7 +41,7 @@ if ( ! Detector.webgl ) {
 		controls.verticalMax = 2.2;
 
 		scene = new THREE.Scene();
-		scene.fog = new THREE.FogExp2( 0xffffff, 0.00015 );
+		scene.fog = new THREE.FogExp2( 0xffffff, 0.0001 );
 
 		// sides
 		//Makes dem cubes
@@ -335,7 +335,7 @@ function makeFancySkyBox(){
 		var imagePrefix = "textures/dawnmountain-";
 		var directions  = ["xpos", "xneg", "ypos", "yneg", "zpos", "zneg"];
 		var imageSuffix = ".png";
-		var skyGeometry = new THREE.CubeGeometry(20000, 20000, 20000);	
+		var skyGeometry = new THREE.CubeGeometry( 20000, 20000, 20000);	
 		
 		var materialArray = [];
 		for (var i = 0; i < 6; i++)
@@ -350,6 +350,12 @@ function makeFancySkyBox(){
 	}
 
 function makePlane(){
+		var shaderMaterial = new THREE.ShaderMaterial({
+	        attributes:     {},
+	        uniforms:       {},
+	        vertexShader:   shaders.vertex,
+	        fragmentShader: shaders.fragment
+	    });
 	    var geometry = new THREE.BoxGeometry(200, 200, 100);
 
 	    plane = new THREE.Mesh( geometry, new THREE.MeshLambertMaterial( { ambient: 0xbbbbbb, vertexColors: THREE.VertexColors } ) );
