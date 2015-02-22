@@ -484,6 +484,7 @@ function checkCollision(){
 		if(plane)
 			makeBoom();
 			//stopTheme();
+            $('.gameover-container').show();
 			$( "#hidden-button" ).trigger( "click" );
 	}
 }
@@ -493,7 +494,7 @@ function makeBoom(){
         autoplay: true,
         loop: false
     });
-    alive = false
+    alive = false;
     scene.remove(plane);
 }
 
