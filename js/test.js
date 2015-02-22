@@ -449,6 +449,7 @@ function checkCollision(){
 		console.log("you exlode");
 		if(plane)
 			makeBoom();
+			toggleModal();
 	}
 }
 
