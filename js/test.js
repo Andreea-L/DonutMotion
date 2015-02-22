@@ -1,6 +1,7 @@
 var camera, controls, scene, renderer;
 var plane;
 var rot = [0,-1,0];
+var collidableMeshes = [];
 
 if ( ! Detector.webgl ) {
 
@@ -223,12 +224,24 @@ if ( ! Detector.webgl ) {
 
 		}
 
-		var texture = THREE.ImageUtils.loadTexture( 'textures/pusheen.gif' );
+		var texture = THREE.ImageUtils.loadTexture( 'textures/snow1.jpg' );
+
+		// var material1 = new THREE.MeshPhongMaterial( { map: THREE.ImageUtils.loadTexture('textures/red.jpg') } );
+		// var material2 = new THREE.MeshPhongMaterial( { map: THREE.ImageUtils.loadTexture('textures/snow.jpg') } );
+
+		// var materials = [material2, material1, material1, material1, material1, material1];
+ 
+  		//var meshFaceMaterial = new THREE.MeshFaceMaterial( materials );
+
+
 		texture.magFilter = THREE.NearestFilter;
 		texture.minFilter = THREE.LinearMipMapLinearFilter;
 
+
 		var mesh = new THREE.Mesh( geometry, new THREE.MeshLambertMaterial( { map: texture, ambient: 0xbbbbbb, vertexColors: THREE.VertexColors } ) );
 		scene.add( mesh );
+		console.log(mesh);
+		collidableMeshes.push(mesh);
 
 		var ambientLight = new THREE.AmbientLight( 0xcccccc );
 		scene.add( ambientLight );
@@ -299,7 +312,7 @@ if ( ! Detector.webgl ) {
 
 	}
 
-	function getY( x, z ) {
+function getY( x, z ) {
 
 		return ( data[ x + z * worldWidth ] * 0.2 ) | 0;
 
@@ -352,8 +365,6 @@ function render() {
 
 	//Makes skybox
 function makeFancySkyBox(){
-		var axes = new THREE.AxisHelper(100);
-		scene.add(axes);
 		
 		var imagePrefix = "textures/dawnmountain-";
 		var directions  = ["xpos", "xneg", "ypos", "yneg", "zpos", "zneg"];
@@ -379,7 +390,22 @@ function makePlane(){
 	    plane.up = new THREE.Vector3(0,0,1);
 	    scene.add(plane);
         plane.position.y = 1000;
+}
+
+function checkCollision(){
+	var originPoint = plane.position.clone();
+
+	for (var vertexIndex = 0; vertexIndex < plane.geometry.vertices.length; vertexIndex++){		
+		var localVertex = plane.geometry.vertices[vertexIndex].clone();
+		var globalVertex = localVertex.applyMatrix4( plane.matrix );
+		var directionVector = globalVertex.sub( plane.position );
+		
+		var ray = new THREE.Raycaster( originPoint, directionVector.clone().normalize() );
+		var collisionResults = ray.intersectObjects( collidableMeshes );
+		if ( collisionResults.length > 0 && collisionResults[0].distance < directionVector.length() ) 
+			console.log("you exlode");
 	}
+}
 
 $(function() {
     makePlane();
