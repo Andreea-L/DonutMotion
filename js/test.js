@@ -366,7 +366,7 @@ function render() {
 	//Makes skybox
 function makeFancySkyBox(){
 		
-		var imagePrefix = "textures/dawnmountain-";
+		var imagePrefix = "textures/po_";
 		var directions  = ["xpos", "xneg", "ypos", "yneg", "zpos", "zneg"];
 		var imageSuffix = ".png";
 		var skyGeometry = new THREE.CubeGeometry( 20000, 20000, 20000);	
@@ -393,11 +393,21 @@ function makePlane(){
 }
 
 function checkCollision(){
-	
 	var x = Math.round(plane.position.x/100)+worldHalfWidth;
 	var z = Math.round(plane.position.z/100)+worldHalfWidth;
-	if(getY(x,z) >= plane.position.y/100)
+	if(getY(x,z) >= plane.position.y/100){
 		console.log("you exlode");
+		if(plane)
+			makeBoom();
+	}
+}
+
+function makeBoom(){
+	scene.remove(plane);
+	//this.engine = new ParticleEngine();
+	//engine.setValues( Examples.smoke );
+	//engine.initialize();
+	
 }
 
 $(function() {
