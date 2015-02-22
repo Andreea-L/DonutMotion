@@ -350,12 +350,6 @@ function makeFancySkyBox(){
 	}
 
 function makePlane(){
-		var shaderMaterial = new THREE.ShaderMaterial({
-	        attributes:     {},
-	        uniforms:       {},
-	        vertexShader:   shaders.vertex,
-	        fragmentShader: shaders.fragment
-	    });
 	    var geometry = new THREE.BoxGeometry(200, 200, 100);
 
 	    plane = new THREE.Mesh( geometry, new THREE.MeshLambertMaterial( { ambient: 0xbbbbbb, vertexColors: THREE.VertexColors } ) );
