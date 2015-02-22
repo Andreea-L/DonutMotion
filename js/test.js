@@ -557,17 +557,20 @@ function checkHoopTraversal(){
 
 	    if((plane.position.y - torus.position.y)^2 + (plane.position.x - torus.position.x)^2 < red_radius^2 && (plane.position.z < torus.position.z+5 && plane.position.z > torus.position.z-5)){
 	    	console.log("Red ringa ringa ringa");
-	    	score++;	
+	    	score++;
+	    	$('#gui .score').html('Score: <em>'+ (score).toFixed(2) +'</em>');	
 	    }
 	    
 	    if((plane.position.y - torus2.position.y)^2 + (plane.position.x - torus2.position.x)^2 < blue_radius^2 && (plane.position.z < torus2.position.z+5 && plane.position.z > torus2.position.z-5)){
 	    	console.log("Blu blu blu");
-	    	score++;	
+	    	score++;
+	    	$('#gui .score').html('Score: <em>'+ (score).toFixed(2) +'</em>');	
 	    }
 
 	    if((plane.position.z - torus3.position.z)^2 + (plane.position.y - torus3.position.y)^2 < green_radius^2 && (plane.position.x < torus3.position.x+5 && plane.position.x > torus3.position.x-5)){
 	    	console.log("Greeeeeeenooo");
 	    	score++;
+	    	$('#gui .score').html('Score: <em>'+ (score).toFixed(2) +'</em>');
 	    }
 }
 
@@ -577,7 +580,7 @@ $(function() {
     window.addEventListener( 'keydown', bind( this, onKeyDown ), false );
     window.addEventListener( 'keyup', bind( this, onKeyUp ), false );
 
-    $('#gui .score').html('Score: <em>'+ (0).toFixed(2) +'</em>');
+    $('#gui .score').html('Score: <em>'+ (score).toFixed(2) +'</em>');
 
     Leap.loop(function (frame) {
         if(frame.hands.length > 0) {
