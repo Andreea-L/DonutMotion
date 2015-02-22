@@ -8,6 +8,10 @@ var score = 0;
 var red_radius = 850;
 var blue_radius = 750;
 var green_radius = 750;
+var music = new buzz.sound("sounds/FantasyBoss.mp3", {
+    autoplay: true,
+    loop: true
+});
 
 if ( ! Detector.webgl ) {
 
@@ -30,6 +34,7 @@ if ( ! Detector.webgl ) {
 
 	init();
 	animate();
+
 
 	function init() {
 
@@ -493,6 +498,7 @@ function makeBoom(){
     });
     alive = false;
     scene.remove(plane);
+    music.stop();
 }
 
 
