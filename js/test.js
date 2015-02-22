@@ -366,7 +366,7 @@ function render() {
 	//Makes skybox
 function makeFancySkyBox(){
 		
-		var imagePrefix = "textures/po_";
+		var imagePrefix = "textures/spires_";
 		var directions  = ["xpos", "xneg", "ypos", "yneg", "zpos", "zneg"];
 		var imageSuffix = ".png";
 		var skyGeometry = new THREE.CubeGeometry( 20000, 20000, 20000);	
