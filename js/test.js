@@ -354,10 +354,12 @@ function animate() {
 
     var falling = (speed < 15) ? ( (15-speed) ) : 0;
 
-    if(plane){
+    if(plane && alive){
         plane.position.x += Math.cos(planeZAngle - Math.PI/2)*speed;
         plane.position.z += Math.sin(planeZAngle - Math.PI/2)*speed;
         plane.position.y += -rot[2]*2*speed - falling;
+        speed += rot[2]*0.1;
+        if(speed < 0)speed = 0;
 
         var x = Math.round(plane.position.x/100)+worldHalfWidth;
         var z = Math.round(plane.position.z/100)+worldHalfWidth;
@@ -377,19 +379,17 @@ function animate() {
         plane.lookAt(rotationNormal);
         plane.rotateZ(planeZAngle);
 
-        if(alive){
-            camera.lookAt(plane.position);
+        camera.lookAt(plane.position);
 
-            var direction = new THREE.Vector3(0, -1, 0);
-            var axis = new THREE.Vector3( -1, 0, 0 );
-            direction.applyAxisAngle( axis, Math.PI / 2 );
-            var axis = new THREE.Vector3( 0, 1, 0 );
-            direction.applyAxisAngle( axis, -planeZAngle );
+        var direction = new THREE.Vector3(0, -1, 0);
+        var axis = new THREE.Vector3( -1, 0, 0 );
+        direction.applyAxisAngle( axis, Math.PI / 2 );
+        var axis = new THREE.Vector3( 0, 1, 0 );
+        direction.applyAxisAngle( axis, -planeZAngle );
 
-            var cameraPosition = direction.multiplyScalar(cameraZoom).add(plane.position);
-            camera.position.set(cameraPosition.x, cameraPosition.y, cameraPosition.z);
-            checkCollision();
-        }
+        var cameraPosition = direction.multiplyScalar(cameraZoom).add(plane.position);
+        camera.position.set(cameraPosition.x, cameraPosition.y, cameraPosition.z);
+        checkCollision();
     }
 
     render();
