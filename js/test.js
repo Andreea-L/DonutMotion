@@ -222,9 +222,19 @@ if ( ! Detector.webgl ) {
 
 		}
 
-		var texture = THREE.ImageUtils.loadTexture( 'textures/pusheen.gif' );
+		var texture = THREE.ImageUtils.loadTexture( 'textures/snow1.jpg' );
+
+		// var material1 = new THREE.MeshPhongMaterial( { map: THREE.ImageUtils.loadTexture('textures/red.jpg') } );
+		// var material2 = new THREE.MeshPhongMaterial( { map: THREE.ImageUtils.loadTexture('textures/snow.jpg') } );
+
+		// var materials = [material2, material1, material1, material1, material1, material1];
+ 
+  		//var meshFaceMaterial = new THREE.MeshFaceMaterial( materials );
+
+
 		texture.magFilter = THREE.NearestFilter;
 		texture.minFilter = THREE.LinearMipMapLinearFilter;
+
 
 		var mesh = new THREE.Mesh( geometry, new THREE.MeshLambertMaterial( { map: texture, ambient: 0xbbbbbb, vertexColors: THREE.VertexColors } ) );
 		scene.add( mesh );
