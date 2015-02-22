@@ -236,29 +236,50 @@ if ( ! Detector.webgl ) {
     //console.log(mesh);
     collidableMeshes.push(mesh);
 
-    //BIG THORUS
-    var torusGeometry = new THREE.TorusGeometry( 850, 110, 16, 100 );
-    torus = new THREE.Mesh( torusGeometry, new THREE.MeshLambertMaterial( { ambient: 0xff3333, color:0xff0000 , vertexColors: THREE.VertexColors } ) );
-    torus.up = new THREE.Vector3(0,0,1);
-    torus.position.z += 4000;
-    torus.position.y += 2500;
-    scene.add(torus);
 
-    var torus2Geometry = new THREE.TorusGeometry( 750, 60, 16, 100 );
-    torus2 = new THREE.Mesh( torus2Geometry, new THREE.MeshLambertMaterial( { ambient: 0x3333ff, color:0x0000ff , vertexColors: THREE.VertexColors } ) );
-    torus2.up = new THREE.Vector3(0,0,1);
-    torus2.position.z -= 2000;
-    torus2.position.y += 3500;
-    scene.add(torus2);
+    for (var i = 0; i < 20; i++) {
+    	var torusRadius = Math.floor(Math.random()*(900-100+1)+100);
+    	var torusTube = Math.floor(Math.random()*200-40+1)+40);
+		var torusRadSegments = Math.floor(Math.random()*16-8+1)+8);
+		var torusTubSegments = Math.floor(Math.random()*120-6+1)+6);
+		var torusGeometry = new THREE.TorusGeometry( torusRadius, torusTube, torusRadSegments, torusTubSegments );
+		torus = new THREE.Mesh( torusGeometry, new THREE.MeshLambertMaterial( { ambient: 0xff3333, color:0xff0000 , vertexColors: THREE.VertexColors } ) );
+		torus.up = new THREE.Vector3(0,0,1);
+		torus.position.z += Math.pow(-1,Math.floor(Math.random()*10+1))*Math.floor(Math.random()*(4000-2000+1)+2000);
+		torus.position.y += Math.pow(-1,Math.floor(Math.random()*10+1))*Math.floor(Math.random()*(3000-15000+1)+1500);
+		torus3.rotation.y -= Math.PI/Math.floor(Math.random()*(16-2+1)+2);
+		scene.add(torus);
 
-    var torus3Geometry = new THREE.TorusGeometry( 750, 150, 16, 100 );
-    torus3 = new THREE.Mesh( torus3Geometry, new THREE.MeshLambertMaterial( { ambient: 0x33ff33, color:0x00ff00 , vertexColors: THREE.VertexColors } ) );
-    torus3.up = new THREE.Vector3(0,0,1);
-    torus3.position.z -= 5500;
-    torus3.position.x -= 2000;
-    torus3.rotation.y -= Math.PI/4;
-    torus3.position.y += 5000;
-    scene.add(torus3);
+    	
+    };
+ //    var torusRadius = Math.floor(Math.random()*(900-100+1)+100);
+ //    var torusTube = Math.floor(Math.random()*200-40+1)+40);
+	// var torusRadSegments = Math.floor(Math.random()*16-8+1)+8);
+	// var torusTubSegments = Math.floor(Math.random()*120-6+1)+6);
+
+ //    //BIG THORUS
+ //    var torusGeometry = new THREE.TorusGeometry( 850, 110, 16, 100 );
+ //    torus = new THREE.Mesh( torusGeometry, new THREE.MeshLambertMaterial( { ambient: 0xff3333, color:0xff0000 , vertexColors: THREE.VertexColors } ) );
+ //    torus.up = new THREE.Vector3(0,0,1);
+ //    torus.position.z += 4000;
+ //    torus.position.y += 2500;
+ //    scene.add(torus);
+
+ //    var torus2Geometry = new THREE.TorusGeometry( 750, 60, 16, 100 );
+ //    torus2 = new THREE.Mesh( torus2Geometry, new THREE.MeshLambertMaterial( { ambient: 0x3333ff, color:0x0000ff , vertexColors: THREE.VertexColors } ) );
+ //    torus2.up = new THREE.Vector3(0,0,1);
+ //    torus2.position.z -= 2000;
+ //    torus2.position.y += 3500;
+ //    scene.add(torus2);
+
+ //    var torus3Geometry = new THREE.TorusGeometry( 750, 150, 16, 100 );
+ //    torus3 = new THREE.Mesh( torus3Geometry, new THREE.MeshLambertMaterial( { ambient: 0x33ff33, color:0x00ff00 , vertexColors: THREE.VertexColors } ) );
+ //    torus3.up = new THREE.Vector3(0,0,1);
+ //    torus3.position.z -= 5500;
+ //    torus3.position.x -= 2000;
+ //    torus3.rotation.y -= Math.PI/4;
+ //    torus3.position.y += 5000;
+ //    scene.add(torus3);
 
     var ambientLight = new THREE.AmbientLight( 0xcccccc );
     scene.add( ambientLight );
