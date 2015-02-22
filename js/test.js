@@ -1,4 +1,4 @@
-var camera, controls, scene, renderer;
+var camera, scene, renderer;
 var plane;
 var rot = [0,-1,0];
 var collidableMeshes = [];
@@ -316,8 +316,6 @@ function onWindowResize() {
 
     renderer.setSize( window.innerWidth, window.innerHeight );
 
-    controls.handleResize();
-
 }
 
 function loadTexture( path, callback ) {
@@ -425,7 +423,6 @@ function animate() {
 }
 
 function render() {
-    //controls.update( clock.getDelta() );
     renderer.render( scene, camera );
 
 }
