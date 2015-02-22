@@ -449,7 +449,8 @@ function checkCollision(){
 		console.log("you exlode");
 		if(plane)
 			makeBoom();
-			stopTheme();
+			//stopTheme();
+			$( "#hidden-button" ).trigger( "click" );
 	}
 }
 
@@ -460,16 +461,6 @@ function makeBoom(){
 	});
 	alive = false
 	scene.remove(plane);
-}
-
-
-var myTheme = new buzz.sound("sounds/FantasyBoss.mp3", {
-	autoplay: true,
-	loop: true
-});
-
-function stopTheme(){
-	myTheme.stop();
 }
 
 function onKeyDown ( event ) {
