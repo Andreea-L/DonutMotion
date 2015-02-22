@@ -449,14 +449,15 @@ function makePlane(){
 }
 
 function checkCollision(){
-    var x = Math.round(plane.position.x/100)+worldHalfWidth;
-    var z = Math.round(plane.position.z/100)+worldHalfWidth;
-    if(getY(x,z) >= plane.position.y/100){
-        console.log("you exlode");
-        if(plane)
-            makeBoom();
-        stopTheme();
-    }
+	var x = Math.round(plane.position.x/100)+worldHalfWidth;
+	var z = Math.round(plane.position.z/100)+worldHalfWidth;
+	if(getY(x,z) >= plane.position.y/100){
+		console.log("you exlode");
+		if(plane)
+			makeBoom();
+			//stopTheme();
+			$( "#hidden-button" ).trigger( "click" );
+	}
 }
 
 function makeBoom(){
@@ -468,15 +469,6 @@ function makeBoom(){
     scene.remove(plane);
 }
 
-
-var myTheme = new buzz.sound("sounds/FantasyBoss.mp3", {
-    autoplay: true,
-    loop: true
-});
-
-function stopTheme(){
-    myTheme.stop();
-}
 
 function onKeyDown ( event ) {
 
