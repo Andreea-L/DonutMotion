@@ -292,7 +292,7 @@ if ( ! Detector.webgl ) {
 	function generateHeight( width, height ) {
 
 		var data = [], perlin = new ImprovedNoise(),
-		size = width * height, quality = 2, z = Math.random() * 100;
+		size = width * height, quality = 2, z = Math.random() * 1;
 
 		for ( var j = 0; j < 4; j ++ ) {
 
