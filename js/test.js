@@ -553,21 +553,18 @@ function bind( scope, fn ) {
 }
 
 function checkHoopTraversal(){
-		var x = plane.position.x;
-		var z = plane.position.z;
-		var y = plane.position.y;
 
-	    if((y - torus.position.y)^2 + (x - torus.position.x)^2 < red_radius^2 && (z < torus.position.z+5 && z > torus.position.z-5)){
+	    if((plane.position.y - torus.position.y)^2 + (plane.position.x - torus.position.x)^2 < red_radius^2 && (plane.position.z < torus.position.z+5 && plane.position.z > torus.position.z-5)){
 	    	console.log("Red ringa ringa ringa");
 	    	score++;	
 	    }
 	    
-	    if((y - torus2.position.y)^2 + (x - torus2.position.x)^2 < blue_radius^2 && (z < torus2.position.y+5 && z > torus2.position.y-5)){
+	    if((plane.position.y - torus2.position.y)^2 + (plane.position.x - torus2.position.x)^2 < blue_radius^2 && (plane.position.z < torus2.position.z+5 && plane.position.z > torus2.position.z-5)){
 	    	console.log("Blu blu blu");
 	    	score++;	
 	    }
 
-	    if((z - torus3.position.z)^2 + (y - torus3.position.y)^2 < green_radius^2 && (y < torus3.position.y+5 && y > torus3.position.y-5)){
+	    if((plane.position.z - torus3.position.z)^2 + (plane.position.y - torus3.position.y)^2 < green_radius^2 && (plane.position.x < torus3.position.x+5 && plane.position.x > torus3.position.x-5)){
 	    	console.log("Greeeeeeenooo");
 	    	score++;
 	    }
