@@ -241,7 +241,7 @@ if ( ! Detector.webgl ) {
 
 		var mesh = new THREE.Mesh( geometry, new THREE.MeshLambertMaterial( { map: texture, ambient: 0xbbbbbb, vertexColors: THREE.VertexColors } ) );
 		scene.add( mesh );
-		console.log(mesh);
+		//console.log(mesh);
 		collidableMeshes.push(mesh);
 
 		var ambientLight = new THREE.AmbientLight( 0xcccccc );
@@ -264,7 +264,6 @@ if ( ! Detector.webgl ) {
 		window.addEventListener( 'resize', onWindowResize, false );
 
 		makeFancySkyBox();
-
 	}
 
 	function onWindowResize() {
@@ -357,6 +356,7 @@ function getY( x, z ) {
 
             var cameraPosition = direction.multiplyScalar(500).add(plane.position);
             camera.position.set(cameraPosition.x, cameraPosition.y, cameraPosition.z);
+            checkCollision();
         }
 
 		render();
@@ -399,18 +399,11 @@ function makePlane(){
 }
 
 function checkCollision(){
-	var originPoint = plane.position.clone();
-
-	for (var vertexIndex = 0; vertexIndex < plane.geometry.vertices.length; vertexIndex++){		
-		var localVertex = plane.geometry.vertices[vertexIndex].clone();
-		var globalVertex = localVertex.applyMatrix4( plane.matrix );
-		var directionVector = globalVertex.sub( plane.position );
-		
-		var ray = new THREE.Raycaster( originPoint, directionVector.clone().normalize() );
-		var collisionResults = ray.intersectObjects( collidableMeshes );
-		if ( collisionResults.length > 0 && collisionResults[0].distance < directionVector.length() ) 
-			console.log("you exlode");
-	}
+	
+	var x = Math.round(plane.position.x/100)+worldHalfWidth;
+	var z = Math.round(plane.position.z/100)+worldHalfWidth;
+	if(getY(x,z) >= plane.position.y/100)
+		console.log("you exlode");
 }
 
 function onKeyDown ( event ) {
