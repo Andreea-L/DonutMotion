@@ -3,6 +3,7 @@ var plane;
 var rot = [0,-1,0];
 var collidableMeshes = [];
 var keyStates = {};
+var alive = true;
 
 if ( ! Detector.webgl ) {
 
@@ -346,17 +347,19 @@ function getY( x, z ) {
             plane.lookAt(rotationNormal);
             plane.rotateZ(planeZAngle);
 
-            camera.lookAt(plane.position);
+            if(alive){
+	            camera.lookAt(plane.position);
 
-            var direction = new THREE.Vector3(0, -1, 0);
-            var axis = new THREE.Vector3( -1, 0, 0 );
-            direction.applyAxisAngle( axis, Math.PI / 2 );
-            var axis = new THREE.Vector3( 0, 1, 0 );
-            direction.applyAxisAngle( axis, -planeZAngle );
+	            var direction = new THREE.Vector3(0, -1, 0);
+	            var axis = new THREE.Vector3( -1, 0, 0 );
+	            direction.applyAxisAngle( axis, Math.PI / 2 );
+	            var axis = new THREE.Vector3( 0, 1, 0 );
+	            direction.applyAxisAngle( axis, -planeZAngle );
 
-            var cameraPosition = direction.multiplyScalar(500).add(plane.position);
-            camera.position.set(cameraPosition.x, cameraPosition.y, cameraPosition.z);
-            checkCollision();
+	            var cameraPosition = direction.multiplyScalar(500).add(plane.position);
+	            camera.position.set(cameraPosition.x, cameraPosition.y, cameraPosition.z);
+	            checkCollision();
+            }
         }
 
 		render();
@@ -426,7 +429,8 @@ function checkCollision(){
 }
 
 function makeBoom(){
-	//scene.remove(plane);
+	alive = false
+	scene.remove(plane);
 	//this.engine = new ParticleEngine();
 	//engine.setValues( Examples.smoke );
 	//engine.initialize();
