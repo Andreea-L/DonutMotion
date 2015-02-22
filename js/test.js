@@ -494,7 +494,7 @@ function makeBoom(){
         autoplay: true,
         loop: false
     });
-    alive = false
+    alive = false;
     scene.remove(plane);
 }
 
