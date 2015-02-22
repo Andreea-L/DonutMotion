@@ -331,7 +331,7 @@ function makeFancySkyBox(){
 		var imagePrefix = "textures/dawnmountain-";
 		var directions  = ["xpos", "xneg", "ypos", "yneg", "zpos", "zneg"];
 		var imageSuffix = ".png";
-		var skyGeometry = new THREE.CubeGeometry( 20000, 20000, 20000);	
+		var skyGeometry = new THREE.CubeGeometry(20000, 20000, 20000);	
 		
 		var materialArray = [];
 		for (var i = 0; i < 6; i++)
@@ -352,7 +352,7 @@ function makePlane(){
 	        vertexShader:   shaders.vertex,
 	        fragmentShader: shaders.fragment
 	    });
-	    var geometry = new THREE.BoxGeometry( 200, 200, 100 );
+	    var geometry = new THREE.BoxGeometry(200, 200, 100);
 
 	    plane = new THREE.Mesh( geometry, shaderMaterial );
 	    plane.up = new THREE.Vector3(0,0,1);
