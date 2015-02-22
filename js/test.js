@@ -426,12 +426,12 @@ function checkCollision(){
 }
 
 function makeBoom(){
+	var mySound = new buzz.sound("sounds/boom.ogg", {
+		autoplay: true,
+		loop: false
+	});
 	alive = false
 	scene.remove(plane);
-	//this.engine = new ParticleEngine();
-	//engine.setValues( Examples.smoke );
-	//engine.initialize();
-	
 }
 
 function onKeyDown ( event ) {
