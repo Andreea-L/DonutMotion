@@ -1,4 +1,4 @@
 # DonutMotion
 Stacshack 2015 Hackathon.
 
-website:  donuts.wotcs.com
+website:  [donuts.wotcs.com](http://donuts.wotcs.com)
